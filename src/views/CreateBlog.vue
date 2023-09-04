@@ -25,13 +25,24 @@
           <small class="text-secondary text-lowercase">
             (add tag by press enter)
           </small>
-          <input
-            id="tags"
-            type="text"
-            class="form-control mb-2"
-            v-model="tag"
-            @keydown.enter.prevent="addtag"
-          />
+
+          <div class="input-group mb-3">
+            <input
+              id="tags"
+              type="text"
+              class="form-control mb-2"
+              v-model="tag"
+              @keydown.enter.prevent="addtag"
+            />
+            <div class="input-group-append">
+              <span
+                class="input-group-text btn btn-primary"
+                id="basic-addon2"
+                @click="addtag"
+                >add</span
+              >
+            </div>
+          </div>
           <div v-for="tag in tags" :key="tag" class="d-inline">
             <span class="badge rounded-pill text-bg-primary">{{ tag }}</span>
           </div>
