@@ -1,13 +1,18 @@
 <template>
   <NavBar></NavBar>
   <router-view />
+  <footer class="p-3 bg-light text-center">@echo</footer>
 </template>
 <script>
+import Spinner from "./components/Spinner";
+import { onMounted, ref } from "vue";
 import NavBar from "./components/NavBar";
 export default {
   components: {
+    Spinner,
     NavBar,
   },
+  setup() {},
 };
 </script>
 <style>

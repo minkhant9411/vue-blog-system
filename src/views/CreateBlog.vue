@@ -5,30 +5,37 @@
         <h1>Create</h1>
       </div>
       <div class="card-body">
-        <form class="create-form text-uppercase" @submit.prevent="clg">
-          <lable for="title">title</lable>
+        <form class="create-form text-uppercase" @submit.prevent="create">
+          <label for="title">title</label>
           <input
             type="text"
             id="title"
             class="form-control mb-2"
             v-model="title"
+            required
           />
-          <lable for="body">body</lable>
+          <label for="body">body</label>
           <textarea
             id="body"
             class="form-control mb-2"
             v-model="body"
+            required
           ></textarea>
-          <lable for="tags">tags</lable>
+          <label for="tags">tags</label>
+          <small class="text-secondary text-lowercase">
+            (add tag by press enter)
+          </small>
           <input
             id="tags"
             type="text"
             class="form-control mb-2"
             v-model="tag"
+            @keydown.enter.prevent="addtag"
           />
-          <button class="btn btn-primary float-end" type="submit">
-            Create
-          </button>
+          <div v-for="tag in tags" :key="tag" class="d-inline">
+            <span class="badge rounded-pill text-bg-primary">{{ tag }}</span>
+          </div>
+          <button class="btn btn-primary float-end">Create</button>
         </form>
       </div>
     </div>
@@ -37,15 +44,33 @@
 
 <script>
 import { ref } from "vue";
+import { useRouter } from "vue-router";
 export default {
   setup(props) {
     let title = ref("");
     let body = ref("");
+    let tags = ref([]);
     let tag = ref("");
-    let clg = () => {
-      console.log(title.value, body.value, tag.value);
+    let router = useRouter();
+    let addtag = () => {
+      tags.value.push(tag.value);
+      tag.value = "";
     };
-    return { title, body, tag, clg };
+    let create = async () => {
+      await fetch(" http://192.168.1.15:3000/blogs", {
+        method: "POST",
+        headers: {
+          "Content-type": "application/json",
+        },
+        body: JSON.stringify({
+          title: title.value,
+          body: body.value,
+          tags: tags.value,
+        }),
+      });
+      router.push("/");
+    };
+    return { title, body, tag, tags, create, addtag };
   },
 };
 </script>
