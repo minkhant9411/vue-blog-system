@@ -1,8 +1,10 @@
 <template>
   <div class="container">
     <div class="create card">
-      <div class="card-body">
+      <div class="card-header">
         <h1>Create</h1>
+      </div>
+      <div class="card-body">
         <form class="create-form text-uppercase" @submit.prevent="clg">
           <lable for="title">title</lable>
           <input
