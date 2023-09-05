@@ -45,7 +45,11 @@
               </div>
             </div>
             <div v-for="tag in tags" :key="tag" class="d-inline">
-              <span class="badge rounded-pill text-bg-primary">{{ tag }}</span>
+              <span
+                class="badge rounded-pill text-bg-primary"
+                @click="remove(tag)"
+                >{{ tag }}</span
+              >
             </div>
             <button class="btn btn-primary float-end">Create</button>
           </form>
@@ -60,7 +64,7 @@
 
 <script>
 import Spinner from "../components/Spinner";
-import { ref } from "vue";
+import { computed, ref } from "vue";
 import { useRouter } from "vue-router";
 export default {
   components: { Spinner },
@@ -72,10 +76,15 @@ export default {
     let router = useRouter();
     let postData = ref(true);
     let addtag = () => {
-      if (tag.value) {
-        tags.value.push(tag.value.trim());
-        tag.value = "";
+      if (!tags.value.includes(tag.value.trim().toLowerCase()) && tag.value) {
+        tags.value.push(tag.value.trim().toLowerCase());
       }
+      tag.value = "";
+    };
+    let remove = (e) => {
+      tags.value = tags.value.filter((tag) => {
+        return tag != e;
+      });
     };
     let create = async () => {
       postData.value = false;
@@ -93,7 +102,7 @@ export default {
       postData.value = true;
       router.push("/");
     };
-    return { title, body, tag, tags, create, addtag, postData };
+    return { title, body, tag, tags, create, addtag, postData, remove };
   },
 };
 </script>
@@ -102,5 +111,8 @@ export default {
 .create {
   max-width: 600px;
   margin: 30px auto;
+}
+.rounded-pill {
+  cursor: pointer;
 }
 </style>
