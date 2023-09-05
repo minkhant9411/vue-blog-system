@@ -3,8 +3,6 @@ import { ref } from 'vue'
 let getBlog = (id) => {
     let blog = ref([])
     let error = ref('')
-
-
     let load = async () => {
         try {
             let response = await fetch('http://192.168.1.15:3000/blogs/'+id)

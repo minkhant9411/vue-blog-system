@@ -5,7 +5,14 @@
         <Spinner></Spinner>
       </div>
       <div class="card-body">
-        <h1>{{ blog.title }}</h1>
+        <div class="d-flex justify-content-between" v-if="blog.title">
+          <h1>{{ blog.title }}</h1>
+          <router-link
+            :to="{ name: 'edit-blog', params: { id: blog.id } }"
+            class="col-2"
+            >edit blog</router-link
+          >
+        </div>
         {{ blog.body }}
         <div v-if="blog.tags">
           <div v-for="tag in blog.tags" :key="tag" class="d-inline m-1">
