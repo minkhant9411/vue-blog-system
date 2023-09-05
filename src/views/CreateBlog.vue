@@ -64,8 +64,10 @@ export default {
     let tag = ref("");
     let router = useRouter();
     let addtag = () => {
-      tags.value.push(tag.value);
-      tag.value = "";
+      if (tag.value) {
+        tags.value.push(tag.value);
+        tag.value = "";
+      }
     };
     let create = async () => {
       await fetch(" http://192.168.1.15:3000/blogs", {

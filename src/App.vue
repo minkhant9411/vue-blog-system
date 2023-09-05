@@ -5,7 +5,6 @@
 </template>
 <script>
 import Spinner from "./components/Spinner";
-import { onMounted, ref } from "vue";
 import NavBar from "./components/NavBar";
 export default {
   components: {

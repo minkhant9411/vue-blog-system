@@ -1,8 +1,6 @@
 <template>
   <div v-if="blogs.length">
-    <div v-for="blog in blogs" :key="blog.id">
-      <SinglePost :blog="blog"></SinglePost>
-    </div>
+    <PostList :blogs="blogs"></PostList>
   </div>
   <div v-else>
     <Spinner></Spinner>
@@ -10,6 +8,7 @@
 </template>
 
 <script>
+import PostList from "../components/PostList";
 import Spinner from "../components/Spinner";
 import SinglePost from "../components/SinglePost";
 // @ is an alias to /src
@@ -17,6 +16,7 @@ import getBlogs from "../composiables/getBlogs";
 export default {
   name: "HomeView",
   components: {
+    PostList,
     Spinner,
     SinglePost,
   },

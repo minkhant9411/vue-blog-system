@@ -21,10 +21,13 @@
           >
         </p>
       </div>
-      <div v-if="blog.tags">
-        <div v-for="tag in blog.tags" :key="tag" class="d-inline m-1">
-          <span class="badge rounded-pill text-bg-primary">{{ tag }}</span>
-        </div>
+      <div v-for="tag in blog.tags" :key="tag" class="d-inline m-1">
+        <router-link
+          class="badge rounded-pill text-bg-primary border-0"
+          :to="{ name: 'Tag', params: { tag } }"
+        >
+          {{ tag }}
+        </router-link>
       </div>
     </div>
   </div>
