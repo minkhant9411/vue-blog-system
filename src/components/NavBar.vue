@@ -30,12 +30,16 @@
           </li>
         </ul>
       </div>
+      <!-- <Search></Search> -->
     </div>
   </nav>
 </template>
 
 <script>
-export default {};
+import Search from "./Search";
+export default {
+  components: { Search },
+};
 </script>
 
 

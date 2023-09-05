@@ -1,7 +1,7 @@
 <template>
   <NavBar></NavBar>
   <router-view />
-  <footer class="p-3 bg-light text-center">@echo</footer>
+  <!-- <footer class="p-3 bg-light text-center">@echo</footer> -->
 </template>
 <script>
 import Spinner from "./components/Spinner";

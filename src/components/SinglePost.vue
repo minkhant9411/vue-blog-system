@@ -2,8 +2,12 @@
   <div class="card mb-3">
     <div class="card-body">
       <div class="d-flex justify-content-between">
-        <h1>{{ blog.title }}</h1>
-        <router-link :to="{ name: 'blog', params: { id: blog.id } }"
+        <div class="col-10">
+          <h1>{{ blog.title }}</h1>
+        </div>
+        <router-link
+          :to="{ name: 'blog', params: { id: blog.id } }"
+          class="col-2"
           >view blog</router-link
         >
       </div>

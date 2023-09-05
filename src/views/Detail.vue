@@ -1,15 +1,20 @@
 <template>
-  <div v-if="!blog.title && !blog.body">
-    <Spinner></Spinner>
-  </div>
   <div>
     <div class="card mb-3">
+      <div v-if="!blog.title && !blog.body">
+        <Spinner></Spinner>
+      </div>
       <div class="card-body">
         <h1>{{ blog.title }}</h1>
         {{ blog.body }}
         <div v-if="blog.tags">
           <div v-for="tag in blog.tags" :key="tag" class="d-inline m-1">
-            <span class="badge rounded-pill text-bg-primary">{{ tag }}</span>
+            <router-link
+              class="badge rounded-pill text-bg-primary border-0"
+              :to="{ name: 'Tag', params: { tag } }"
+            >
+              {{ tag }}
+            </router-link>
           </div>
         </div>
       </div>

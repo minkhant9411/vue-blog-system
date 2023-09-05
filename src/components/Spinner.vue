@@ -11,15 +11,16 @@ export default {};
 <style>
 .loading {
   z-index: 99;
-  position: absolute;
-  width: 100vw;
-  height: 100vh;
-  top: 0;
-  left: 0;
+  padding: 50px;
+  /* position: absolute; */
+  /* width: 100vw;
+  height: 100vh; */
+  /* top: 0;
+  left: 0; */
   display: flex;
   justify-content: center;
   align-items: center;
-  background-color: aliceblue;
+  /* background-color: aliceblue; */
   /* opacity: 50%; */
 }
 .loading-view {

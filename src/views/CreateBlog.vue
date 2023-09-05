@@ -5,71 +5,80 @@
         <h1>Create</h1>
       </div>
       <div class="card-body">
-        <form class="create-form text-uppercase" @submit.prevent="create">
-          <label for="title">title</label>
-          <input
-            type="text"
-            id="title"
-            class="form-control mb-2"
-            v-model="title"
-            required
-          />
-          <label for="body">body</label>
-          <textarea
-            id="body"
-            class="form-control mb-2"
-            v-model="body"
-            required
-          ></textarea>
-          <label for="tags">tags</label>
-          <small class="text-secondary text-lowercase">
-            (add tag by press enter)
-          </small>
-
-          <div class="input-group mb-3">
+        <div v-if="postData">
+          <form class="create-form text-uppercase" @submit.prevent="create">
+            <label for="title">title</label>
             <input
-              id="tags"
               type="text"
+              id="title"
               class="form-control mb-2"
-              v-model="tag"
-              @keydown.enter.prevent="addtag"
+              v-model="title"
+              required
             />
-            <div class="input-group-append">
-              <span
-                class="input-group-text btn btn-primary"
-                id="basic-addon2"
-                @click="addtag"
-                >add</span
-              >
+            <label for="body">body</label>
+            <textarea
+              id="body"
+              class="form-control mb-2"
+              v-model="body"
+              required
+            ></textarea>
+            <label for="tags">tags</label>
+            <small class="text-secondary text-lowercase">
+              (add tag by press enter)
+            </small>
+
+            <div class="input-group mb-3">
+              <input
+                id="tags"
+                type="text"
+                class="form-control mb-2"
+                v-model="tag"
+                @keydown.enter.prevent="addtag"
+              />
+              <div class="input-group-append">
+                <span
+                  class="input-group-text btn btn-primary"
+                  id="basic-addon2"
+                  @click="addtag"
+                  >add</span
+                >
+              </div>
             </div>
-          </div>
-          <div v-for="tag in tags" :key="tag" class="d-inline">
-            <span class="badge rounded-pill text-bg-primary">{{ tag }}</span>
-          </div>
-          <button class="btn btn-primary float-end">Create</button>
-        </form>
+            <div v-for="tag in tags" :key="tag" class="d-inline">
+              <span class="badge rounded-pill text-bg-primary">{{ tag }}</span>
+            </div>
+            <button class="btn btn-primary float-end">Create</button>
+          </form>
+        </div>
+        <div v-else>
+          <Spinner></Spinner>
+        </div>
       </div>
     </div>
   </div>
 </template>
 
 <script>
+import Spinner from "../components/Spinner";
 import { ref } from "vue";
 import { useRouter } from "vue-router";
 export default {
+  components: { Spinner },
   setup(props) {
     let title = ref("");
     let body = ref("");
     let tags = ref([]);
     let tag = ref("");
     let router = useRouter();
+    let postData = ref(true);
     let addtag = () => {
       if (tag.value) {
-        tags.value.push(tag.value);
+        tags.value.push(tag.value.trim());
         tag.value = "";
       }
     };
     let create = async () => {
+      postData.value = false;
       await fetch(" http://192.168.1.15:3000/blogs", {
         method: "POST",
         headers: {
@@ -81,9 +90,10 @@ export default {
           tags: tags.value,
         }),
       });
+      postData.value = true;
       router.push("/");
     };
-    return { title, body, tag, tags, create, addtag };
+    return { title, body, tag, tags, create, addtag, postData };
   },
 };
 </script>
