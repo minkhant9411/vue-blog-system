@@ -19,7 +19,6 @@ yarn build
 See [Configuration Reference](https://cli.vuejs.org/config/).
 # vue-blog-system
 
-### To make fake api 
-```
-json-server database/db.json -H "Your host"
-```
+### Visit to my project
+See [Vue Blog](https://minkhant9411.github.io/vue-blog-system/).
+
