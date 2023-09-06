@@ -13,10 +13,12 @@
         >
       </div>
       <div v-if="readAll">
-        {{ blog.body }}
-        <small v-if="blog.body.length > 100" @click="readAll = !readAll"
-          >read less...</small
-        >
+        <p>
+          {{ blog.body }}
+          <small v-if="blog.body.length > 100" @click="readAll = !readAll"
+            >read less...</small
+          >
+        </p>
       </div>
       <div v-else>
         <p>
