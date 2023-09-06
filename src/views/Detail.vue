@@ -44,7 +44,8 @@ export default {
     let { blog, error, load } = getBlog(props.id);
     load();
     let deleteBlog = async () => {
-      if (confirm("are you sure?")) {
+      let pass = prompt("are you sure?,enter pasword");
+      if (pass === "mink1242022") {
         let res = doc(db, "blogs", props.id);
         deleteDoc(res);
         router.push("/");
