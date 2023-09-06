@@ -4,6 +4,7 @@
       <div class="d-flex justify-content-between">
         <div class="col-10">
           <h1>{{ blog.title }}</h1>
+          <small>{{ blog.created_at }}</small>
         </div>
         <router-link
           :to="{ name: 'blog', params: { id: blog.id } }"

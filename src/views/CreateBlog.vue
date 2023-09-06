@@ -64,9 +64,14 @@
 
 <script>
 import Spinner from "../components/Spinner";
-import { computed, ref } from "vue";
+import { ref } from "vue";
 import { useRouter } from "vue-router";
-import { addDoc, collection, doc, setDoc } from "firebase/firestore";
+import {
+  Timestamp,
+  addDoc,
+  collection,
+  serverTimestamp,
+} from "firebase/firestore";
 import { db } from "@/firebase/config";
 export default {
   components: { Spinner },
@@ -93,6 +98,7 @@ export default {
         title: title.value,
         body: body.value,
         tags: tags.value,
+        created_at: serverTimestamp(),
       };
       postData.value = false;
       let res = collection(db, "blogs");

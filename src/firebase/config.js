@@ -1,6 +1,6 @@
 // Import the functions you need from the SDKs you need
 import { initializeApp } from 'firebase/app';
-import { collection, getFirestore } from 'firebase/firestore';
+import { Timestamp, collection, getFirestore } from 'firebase/firestore';
 // TODO: Add SDKs for Firebase products that you want to use
 // https://firebase.google.com/docs/web/setup#available-libraries
 
@@ -19,4 +19,5 @@ const app = initializeApp(firebaseConfig);
 //database setup
 let db = getFirestore(app);
 // let datas = collection(db, 'blogs');
+// let timestemp = Timestamp
 export { db };
