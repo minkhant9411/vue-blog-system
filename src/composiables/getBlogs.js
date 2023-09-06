@@ -11,8 +11,8 @@ import {
 let getBlogs = () => {
   let blogs = ref([]);
   let error = ref('');
-  let q = query(collection(db, 'blogs'), orderBy('created_at', 'desc'));
-  onSnapshot(q, (e) => {
+  let qu = query(collection(db, 'blogs'), orderBy('created_at', 'desc'));
+  onSnapshot(qu, (e) => {
     console.log('hit');
     blogs.value = e.docs.map((doc) => {
       return { id: doc.id, ...doc.data() };
