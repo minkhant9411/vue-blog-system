@@ -66,6 +66,8 @@
 import Spinner from "../components/Spinner";
 import { computed, ref } from "vue";
 import { useRouter } from "vue-router";
+import { addDoc, collection, doc, setDoc } from "firebase/firestore";
+import { db } from "@/firebase/config";
 export default {
   components: { Spinner },
   setup(props) {
@@ -87,18 +89,16 @@ export default {
       });
     };
     let create = async () => {
+      let newPost = {
+        title: title.value,
+        body: body.value,
+        tags: tags.value,
+      };
       postData.value = false;
-      await fetch(" http://192.168.1.15:3000/blogs", {
-        method: "POST",
-        headers: {
-          "Content-type": "application/json",
-        },
-        body: JSON.stringify({
-          title: title.value,
-          body: body.value,
-          tags: tags.value,
-        }),
-      });
+      let res = collection(db, "blogs");
+      // console.log(res);
+      // return;
+      await addDoc(res, newPost);
       postData.value = true;
       router.push("/");
     };

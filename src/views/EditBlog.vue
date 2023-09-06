@@ -9,7 +9,7 @@
           <Spinner></Spinner>
         </div>
         <div v-else-if="postData">
-          <form class="create-form text-uppercase" @submit.prevent="create">
+          <form class="create-form text-uppercase" @submit.prevent="edit">
             <label for="title">title</label>
             <input
               type="text"
@@ -51,7 +51,7 @@
             <div v-for="tag in tags" :key="tag" class="d-inline">
               <span
                 class="badge rounded-pill text-bg-primary"
-                @click="remove(tag)"
+                @click="removeTag(tag)"
                 >{{ tag }}</span
               >
             </div>
@@ -70,57 +70,57 @@
 import Spinner from "../components/Spinner";
 import { ref } from "vue";
 import { useRouter } from "vue-router";
+import { collection, doc, getDoc, setDoc, updateDoc } from "firebase/firestore";
+import { db } from "@/firebase/config";
 
 export default {
   props: ["id"],
   components: { Spinner },
   setup(props) {
     let blog = ref([]);
-    let error = ref("");
+    // let error = ref("");
     let title = ref("");
     let body = ref("");
     let tags = ref([]);
+    let tag = ref("");
+    let router = useRouter();
+
+    let postData = ref(true);
     let load = async () => {
-      let response = await fetch("http://192.168.1.15:3000/blogs/" + props.id);
-      let datas = await response.json();
-      blog.value = datas;
+      let res = doc(db, "blogs", props.id);
+      let data = await getDoc(res);
+      // console.log(data.data());
+      blog.value = { id: data.id, ...data.data() };
       title.value = blog.value.title;
       body.value = blog.value.body;
       tags.value = blog.value.tags;
     };
     load();
 
-    let tag = ref("");
-    let router = useRouter();
-    let postData = ref(true);
     let addtag = () => {
       if (!tags.value.includes(tag.value.trim().toLowerCase()) && tag.value) {
         tags.value.push(tag.value.trim());
       }
       tag.value = "";
     };
-    let remove = (e) => {
+    let removeTag = (e) => {
       tags.value = tags.value.filter((tag) => {
         return tag != e;
       });
     };
-    let create = async () => {
+    let edit = async () => {
+      let newPost = {
+        title: title.value,
+        body: body.value,
+        tags: tags.value,
+      };
       postData.value = false;
-      await fetch(" http://192.168.1.15:3000/blogs/" + props.id, {
-        method: "PATCH",
-        headers: {
-          "Content-type": "application/json",
-        },
-        body: JSON.stringify({
-          title: title.value,
-          body: body.value,
-          tags: tags.value,
-        }),
-      });
+      let res = doc(db, "blogs", props.id);
+      await updateDoc(res, newPost);
       postData.value = true;
       router.push("/");
     };
-    return { title, body, tag, tags, create, addtag, postData, blog, remove };
+    return { title, body, tag, tags, edit, addtag, postData, blog, removeTag };
   },
 };
 </script>

@@ -34,6 +34,8 @@
 import Spinner from "../components/Spinner";
 import getBlog from "@/composiables/getBlog";
 import { useRouter } from "vue-router";
+import { deleteDoc, doc } from "firebase/firestore";
+import { db } from "@/firebase/config";
 export default {
   components: { Spinner },
   props: ["id"],
@@ -43,9 +45,8 @@ export default {
     load();
     let deleteBlog = async () => {
       if (confirm("are you sure?")) {
-        await fetch("http://192.168.1.15:3000/blogs/" + props.id, {
-          method: "DELETE",
-        });
+        let res = doc(db, "blogs", props.id);
+        deleteDoc(res);
         router.push("/");
       }
     };
