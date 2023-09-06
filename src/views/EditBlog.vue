@@ -109,16 +109,22 @@ export default {
       });
     };
     let edit = async () => {
-      let newPost = {
-        title: title.value,
-        body: body.value,
-        tags: tags.value,
-      };
-      postData.value = false;
-      let res = doc(db, "blogs", props.id);
-      await updateDoc(res, newPost);
-      postData.value = true;
-      router.push("/");
+      let pass = prompt("are you sure? enter password");
+      if (pass === "mink1242022") {
+        let newPost = {
+          title: title.value,
+          body: body.value,
+          tags: tags.value,
+        };
+        postData.value = false;
+        let res = doc(db, "blogs", props.id);
+        await updateDoc(res, newPost);
+        postData.value = true;
+        router.push("/");
+      } else {
+        alert("wrong password!");
+        router.push("/");
+      }
     };
     return { title, body, tag, tags, edit, addtag, postData, blog, removeTag };
   },

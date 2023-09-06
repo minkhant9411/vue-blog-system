@@ -1,44 +1,44 @@
-import { createRouter, createWebHistory } from 'vue-router'
-import HomeView from '../views/HomeView.vue'
-import CreateBlog from '../views/CreateBlog.vue'
-import EditBlog from '../views/EditBlog.vue'
-import Detail from '../views/Detail.vue'
-import tagDetail from '../views/tagDetail.vue'
+import { createRouter, createWebHistory } from 'vue-router';
+import HomeView from '../views/HomeView.vue';
+import CreateBlog from '../views/CreateBlog.vue';
+import EditBlog from '../views/EditBlog.vue';
+import Detail from '../views/Detail.vue';
+import tagDetail from '../views/tagDetail.vue';
 
 const routes = [
   {
     path: '/',
     name: 'home',
-    component: HomeView
+    component: HomeView,
   },
   {
     path: '/create-blog',
     name: 'create-blog',
-    component: CreateBlog
+    component: CreateBlog,
   },
   {
     path: '/edit-blog/:id',
     name: 'edit-blog',
     component: EditBlog,
-    props:true
+    props: true,
   },
   {
     path: '/blogs/:id',
     name: 'blog',
     component: Detail,
-    props:true
+    props: true,
   },
   {
     path: '/tags/:tag',
     name: 'Tag',
     component: tagDetail,
-    props:true
-  }
-]
+    props: true,
+  },
+];
 
 const router = createRouter({
-  history: createWebHistory(process.env.BASE_URL),
-  routes
-})
+  history: createWebHistory('/vue-blog-system/'),
+  routes,
+});
 
-export default router
+export default router;
