@@ -37,7 +37,7 @@ const routes = [
 ];
 
 const router = createRouter({
-  history: createWebHistory('/blog-system/'),
+  history: createWebHistory('/vue-blog-system/'),
   routes,
 });
 
